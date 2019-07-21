@@ -7,7 +7,9 @@ export async function getMovies(): Promise<void | IMovie[]> {
   const connection = await getConnection();
 
   return connection
-    .execute('select * from movies', [], { outFormat: oracledb.OBJECT })
+    .execute('select id, name, picture from movies', [], {
+      outFormat: oracledb.OBJECT
+    })
     .then(result => result.rows.map(value => mapMovieFromResult(value)))
     .catch(error => {
       console.error(error);
