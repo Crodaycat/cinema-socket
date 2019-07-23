@@ -9,16 +9,16 @@ import IMovie from '../models/movie';
   providedIn: 'root'
 })
 export class MovieService {
-  socket = io('http://localhost:80/');
+  socket = io('http://192.168.25.175:80/');
 
   constructor(private restangular: Restangular) {}
 
-  getAllMovies(): Observable<IMovie[]> {
-    return this.restangular.all('movies').getList();
+  getAllMovies(cb: (data) => void) {
+    this.socket.emit('get-movies');
+    this.socket.on('get-movies', cb);
   }
 
-  subscribeMovie(cb: (data) => any) {
-    this.socket.connect();
+  subscribeMovie(cb: (data) => void) {
     this.socket.on('created-movie', cb);
   }
 

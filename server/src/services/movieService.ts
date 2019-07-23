@@ -33,7 +33,6 @@ export async function postMovies(movie: IMovie): Promise<void | IMovie> {
     })
     .then(async result => {
       const movie = await result.outBinds['cursor'].getRow();
-      console.log('Movie: ', movie);
       return mapMovieFromResult(movie);
     })
     .catch(error => {

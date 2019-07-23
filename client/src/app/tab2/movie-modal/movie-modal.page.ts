@@ -25,8 +25,6 @@ export class MovieModalPage implements OnInit {
 
   saveMovie() {
     const movie: IMovie = this.movieForm.value as IMovie;
-    console.log(movie);
-
     this.movieService.postMovie(movie);
   }
 }
