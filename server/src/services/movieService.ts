@@ -19,6 +19,31 @@ export async function getMovies(): Promise<void | IMovie[]> {
     });
 }
 
+export async function postMovies(movie: IMovie): Promise<void | IMovie> {
+  const connection = await getConnection();
+
+  const bindVars = {
+    name: movie.name,
+    cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+  };
+
+  return connection
+    .execute('BEGIN P_INS_MOVIE(:name, :cursor); END;', bindVars, {
+      outFormat: oracledb.OBJECT
+    })
+    .then(async result => {
+      const movie = await result.outBinds['cursor'].getRow();
+      console.log('Movie: ', movie);
+      return mapMovieFromResult(movie);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    .finally(() => {
+      connection.close();
+    });
+}
+
 function mapMovieFromResult(data: Record<string, any>): IMovie {
   return {
     id: data['ID'],

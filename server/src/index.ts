@@ -47,8 +47,8 @@ server.listen(80);
 const io = SocketIO(server);
 
 io.on('connection', socket => {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', data => {
-    console.log(data);
+  socket.on('create-movie', async data => {
+    const movie: IMovie = data;
+    io.emit('created-movie', await postMovies(movie));
   });
 });
