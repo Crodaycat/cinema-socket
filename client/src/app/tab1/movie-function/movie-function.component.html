@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBackButton()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Funciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="functionsDateForm">
+    <ion-item>
+      <ion-label position="floating">Fecha de la función</ion-label>
+      <ion-datetime
+        formControlName="date"
+        displayFormat="DD/MM/YYYY"
+        max="2050-12-31"
+      >
+      </ion-datetime>
+    </ion-item>
+  </form>
+  <app-function-list
+    [functions]="movieFunctions"
+    (functionSelected)="onMovieFunctionSelected($event)"
+  ></app-function-list>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button
+      (click)="searchMovieFunctions()"
+      [disabled]="functionsDateForm.invalid"
+    >
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
