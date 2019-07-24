@@ -93,7 +93,6 @@ export class ReservationComponent implements OnInit {
     this.seatsMatrix[this.getReservationRowIndex(reservation)][
       reservation.reservationChair
     ] = 0;
-    console.log(this.seatsMatrix);
   }
 
   getReservationRowIndex(reservation: IReservation) {

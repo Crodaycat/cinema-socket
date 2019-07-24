@@ -61,4 +61,8 @@ export class MovieFunctionComponent implements OnInit {
       });
     }
   }
+
+  goBackButton() {
+    this.router.navigate(['tabs', 'tab1']);
+  }
 }

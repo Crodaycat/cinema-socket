@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import IReservation from '../models/reservation';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
-  socket = io('http://localhost:80/');
+  socket = io(environment.apiBaseUrl);
 
   constructor() {}
 

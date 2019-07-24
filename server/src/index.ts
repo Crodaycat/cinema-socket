@@ -63,7 +63,6 @@ io.on('connection', socket => {
   });
 
   socket.on('create-reservation', async data => {
-    console.log(data);
     io.emit('created-reservation', await postReservation(data));
   });
 });

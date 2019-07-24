@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import IMovie from '../models/movie';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  socket = io('http://localhost:80/');
+  socket = io(environment.apiBaseUrl);
 
   constructor() {}
 
