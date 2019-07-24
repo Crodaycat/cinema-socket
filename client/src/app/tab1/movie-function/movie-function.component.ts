@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import IMovieFunction from '../../models/movieFunction';
 import { MovieFunctionService } from '../../services/movie-function.service';
@@ -17,7 +17,8 @@ export class MovieFunctionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private movieFunctionService: MovieFunctionService
+    private movieFunctionService: MovieFunctionService,
+    private router: Router
   ) {
     this.functionsDateForm = this.fb.group({
       date: [new Date().toISOString(), Validators.required]
@@ -51,5 +52,13 @@ export class MovieFunctionComponent implements OnInit {
       },
       result => (this.movieFunctions = result || [])
     );
+  }
+
+  onMovieFunctionSelected(movieFunction: IMovieFunction) {
+    if (movieFunction) {
+      this.router.navigate([movieFunction.id], {
+        relativeTo: this.route
+      });
+    }
   }
 }

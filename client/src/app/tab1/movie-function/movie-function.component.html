@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       Funciones
     </ion-title>
@@ -18,7 +23,10 @@
       </ion-datetime>
     </ion-item>
   </form>
-  <app-function-list [functions]="movieFunctions"></app-function-list>
+  <app-function-list
+    [functions]="movieFunctions"
+    (functionSelected)="onMovieFunctionSelected($event)"
+  ></app-function-list>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MovieFunctionComponent } from './movie-function/movie-function.component';
 import { MovieComponent } from './movie/movie.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,10 @@ const routes: Routes = [
       { path: '', component: MovieComponent },
       {
         path: 'movies/:movieId/functions',
-        children: [{ path: '', component: MovieFunctionComponent }]
+        children: [
+          { path: '', component: MovieFunctionComponent },
+          { path: ':functionId', component: ReservationComponent }
+        ]
       }
     ]
   }

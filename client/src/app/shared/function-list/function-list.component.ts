@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import IMovieFunction from 'src/app/models/movieFunction';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import IMovieFunction from '../../models/movieFunction';
 
 @Component({
   selector: 'app-function-list',
@@ -8,8 +9,13 @@ import IMovieFunction from 'src/app/models/movieFunction';
 })
 export class FunctionListComponent implements OnInit {
   @Input() functions: IMovieFunction[] = [];
+  @Output() functionSelected: EventEmitter<IMovieFunction> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
+
+  onFunctionSelected(movieFunction: IMovieFunction) {
+    this.functionSelected.emit(movieFunction);
+  }
 }

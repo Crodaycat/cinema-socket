@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBackButton()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Reservas para la función
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row *ngFor="let seatsRows of seatsMatrix; let row = index">
+    <ion-fab-button
+      size="small"
+      *ngFor="let seat of seatsRows; let col = index"
+      [disabled]="!seat"
+      (click)="openReserveSeat(row, col)"
+    >
+      <ion-icon name="contact"></ion-icon>
+    </ion-fab-button>
+  </ion-row>
+  <ion-item>
+    <ion-label style="text-align: center;">
+      Pantalla
+    </ion-label>
+  </ion-item>
+</ion-content>

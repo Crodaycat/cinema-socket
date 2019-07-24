@@ -8,7 +8,7 @@ import {
   postMovieFunction
 } from './services/movieFunctionService';
 import { getMovies, postMovies } from './services/movieService';
-import { getReservations } from './services/reservation';
+import { getReservations, postReservation } from './services/reservation';
 
 const app = express();
 
@@ -33,14 +33,6 @@ app.use(function(req, res, next) {
 
 const server = http.createServer(app);
 
-app.get('/movies', async (req, res) => {
-  res.send(await getMovies());
-});
-
-app.get('/reservations', async (req, res) => {
-  res.send(await getReservations());
-});
-
 server.listen(80);
 
 const io = SocketIO(server);
@@ -64,5 +56,14 @@ io.on('connection', socket => {
 
   socket.on('create-movie-function', async data => {
     io.emit('created-movie-function', await postMovieFunction(data));
+  });
+
+  socket.on('get-reservations', async data => {
+    socket.emit('get-reservations', await getReservations(data));
+  });
+
+  socket.on('create-reservation', async data => {
+    console.log(data);
+    io.emit('created-reservation', await postReservation(data));
   });
 });

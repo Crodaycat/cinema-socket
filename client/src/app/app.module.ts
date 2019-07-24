@@ -9,7 +9,6 @@ import { RestangularModule } from 'ngx-restangular';
 import { environment } from '../environments/environment.prod';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MovieService } from './services/movie.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,8 +22,7 @@ import { MovieService } from './services/movie.service';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    MovieService
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
