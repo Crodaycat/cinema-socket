@@ -3,7 +3,10 @@ import http from 'http';
 import SocketIO from 'socket.io';
 
 import IMovie from './models/movie';
-import { getMovieFunctions } from './services/movieFunctionService';
+import {
+  getMovieFunctions,
+  postMovieFunction
+} from './services/movieFunctionService';
 import { getMovies, postMovies } from './services/movieService';
 import { getReservations } from './services/reservation';
 
@@ -34,10 +37,6 @@ app.get('/movies', async (req, res) => {
   res.send(await getMovies());
 });
 
-app.get('/functions', async (req, res) => {
-  res.send(await getMovieFunctions());
-});
-
 app.get('/reservations', async (req, res) => {
   res.send(await getReservations());
 });
@@ -54,5 +53,16 @@ io.on('connection', socket => {
   socket.on('create-movie', async data => {
     const movie: IMovie = data;
     io.emit('created-movie', await postMovies(movie));
+  });
+
+  socket.on('get-movie-functions', async data => {
+    socket.emit(
+      'get-movie-functions',
+      await getMovieFunctions(data.movieId, data.movieFunctionDate)
+    );
+  });
+
+  socket.on('create-movie-function', async data => {
+    io.emit('created-movie-function', await postMovieFunction(data));
   });
 });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieModalPage } from '../movie-modal/movie-modal.page';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import IMovie from 'src/app/models/movie';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,7 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MovieComponent implements OnInit {
   constructor(
     private modalController: ModalController,
-    private navCotroller: NavController
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {}
@@ -22,16 +23,14 @@ export class MovieComponent implements OnInit {
       component: MovieModalPage
     });
 
-    // modal.onDidDismiss().then(() => {
-    //   console.log('Me cerraron');
-    // });
     return await modal.present();
   }
 
   onMovieSelected(movie: IMovie) {
     if (movie) {
-      // this.router.navigate([`/movies/${movie.id}/functions`]);
-      this.navCotroller.navigateForward('/movies');
+      this.router.navigate(['movies', movie.id, 'functions'], {
+        relativeTo: this.route
+      });
     }
   }
 }

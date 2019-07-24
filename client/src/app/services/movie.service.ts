@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
-import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 
 import IMovie from '../models/movie';
@@ -9,9 +7,9 @@ import IMovie from '../models/movie';
   providedIn: 'root'
 })
 export class MovieService {
-  socket = io('http://192.168.25.175:80/');
+  socket = io('http://localhost:80/');
 
-  constructor(private restangular: Restangular) {}
+  constructor() {}
 
   getAllMovies(cb: (data) => void) {
     this.socket.emit('get-movies');
